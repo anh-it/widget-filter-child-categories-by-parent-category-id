@@ -124,7 +124,7 @@ class WFCCBPCI_Widget extends WP_Widget {
 				$html .= '<li class="cat-item cat-item-' . $term->term_id . '" id="term-' . $term->term_id . '" aria-expanded="true"><a href="' . get_term_link( $term, $taxonomy ) . '">' . $term->name . '</a></li>' . PHP_EOL;
 			}
 		} else {
-			$html .= '<li class="cat-item cat-item-0"><a href="' . get_term_link( $uncategorized, $taxonomy ) . '">' . $uncategorized->name . '</a></li>' . PHP_EOL;
+			$html .= '<li class="cat-item cat-item-0"><a href="' . get_term_link( 'Uncategorized', $taxonomy ) . '">Uncategorized</a></li>' . PHP_EOL;
 		}
 		$html .= '</ul>';
 		echo $html;
