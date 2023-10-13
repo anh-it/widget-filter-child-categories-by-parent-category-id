@@ -61,4 +61,4 @@ if ( ! function_exists( 'enqueue_plugin_assets' ) && ! function_exists( 'client_
 	register_activation_hook( __FILE__, 'enqueue_plugin_assets' );
 }
 require_once( WFCCBPCI_DIR . 'settings.php' );
-require_once( WFCCBPCI_DIR . 'widgets\filter-child-categories-by-parent-category-id.widget.php' );
+require_once( WFCCBPCI_DIR . 'widgets/filter-child-categories-by-parent-category-id.widget.php' );
