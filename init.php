@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WFCCBPCI | Filter Child Categories By Parent Category ID
+ * Plugin Name: WFCCBPCI |Widget Filter Child Categories By Parent Category ID
  * Plugin URI: https://tu-dev.com/plugins/widget-filter-child-categories-by-parent-category-id
  * Description: <code><strong>WSSCBIDP | Filter child categories by parent category ID</strong></code>
  * Version: 1.0.0
@@ -61,4 +61,4 @@ if ( ! function_exists( 'enqueue_plugin_assets' ) && ! function_exists( 'client_
 	register_activation_hook( __FILE__, 'enqueue_plugin_assets' );
 }
 require_once( WFCCBPCI_DIR . 'settings.php' );
-require_once( WFCCBPCI_DIR . 'widgets\filter-child-categories-by-parent-category-id.widget.php' );
+require_once( WFCCBPCI_DIR . 'widgets/filter-child-categories-by-parent-category-id.widget.php' );

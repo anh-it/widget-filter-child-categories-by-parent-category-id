@@ -51,7 +51,7 @@ class WFCCBPCI_Widget extends WP_Widget {
 		$html = '<p ><label for="' . esc_attr( $this->get_field_id( 'cat_parent' ) ) . '" class="wfccbpci__session-title">' . __( 'Select category parent' ) . '</label><select class="widefat" id="' . esc_attr( $this->get_field_id( 'cat_parent' ) ) . '" name="' . esc_attr__( $this->get_field_name( 'cat_parent' ) ) . '"><option value="0,Uncategorized" selected disabled>Select category parent</option>' . PHP_EOL;
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
-				$html .= '<option value="' . esc_attr( $term->term_id ) . ',' . esc_attr( $term->name ) . '"' . selected( $instance['id_parent'], $term->term_id, false ) . '>' . esc_html( $term->name ) . '</option>';
+				$html .= '<option value="' . esc_attr( $term->term_id ) . ',' . esc_attr( $term->name ) . '"' . selected( $instance['cat_parent'], esc_attr( $term->term_id ) . ',' . esc_attr( $term->name ) , false ) . '>' . esc_html( $term->name ) . '</option>';
 			}
 		}
 		$html .= '</select>' . PHP_EOL;
@@ -124,7 +124,7 @@ class WFCCBPCI_Widget extends WP_Widget {
 				$html .= '<li class="cat-item cat-item-' . $term->term_id . '" id="term-' . $term->term_id . '" aria-expanded="true"><a href="' . get_term_link( $term, $taxonomy ) . '">' . $term->name . '</a></li>' . PHP_EOL;
 			}
 		} else {
-			$html .= '<li class="cat-item cat-item-0"><a href="' . get_term_link( $uncategorized, $taxonomy ) . '">' . $uncategorized->name . '</a></li>' . PHP_EOL;
+			$html .= '<li class="cat-item cat-item-0"><a href="' . get_term_link( 'Uncategorized', $taxonomy ) . '">Uncategorized</a></li>' . PHP_EOL;
 		}
 		$html .= '</ul>';
 		echo $html;
