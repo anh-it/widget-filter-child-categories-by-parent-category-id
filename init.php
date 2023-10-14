@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WFCCBPCI | Filter Child Categories By Parent Category ID
+ * Plugin Name: WFCCBPCI |Widget Filter Child Categories By Parent Category ID
  * Plugin URI: https://tu-dev.com/plugins/widget-filter-child-categories-by-parent-category-id
  * Description: <code><strong>WSSCBIDP | Filter child categories by parent category ID</strong></code>
  * Version: 1.0.0
