@@ -33,6 +33,7 @@ class WFCCBPCI_Widget extends WP_Widget {
 		// Set default values for the instance
 		$default  = array(
 			'cat_parent' => (string) '0,Uncategorized',
+			'slug'   => (string) 'uncategorized',
 		);
 		$instance = wp_parse_args( (array) $instance, (array) $default );
 
@@ -48,7 +49,18 @@ class WFCCBPCI_Widget extends WP_Widget {
 			'parent'     => 0
 		) );
 
-		$html = '<p ><label for="' . esc_attr( $this->get_field_id( 'cat_parent' ) ) . '" class="wfccbpci__session-title">' . __( 'Select category parent' ) . '</label><select class="widefat" id="' . esc_attr( $this->get_field_id( 'cat_parent' ) ) . '" name="' . esc_attr__( $this->get_field_name( 'cat_parent' ) ) . '"><option value="0,Uncategorized" selected disabled>Select category parent</option>' . PHP_EOL;
+		$pages = get_pages(array(
+			'exclude'    => $exclude,
+			'hide_empty' => false,
+			'order'      => 'ASC',
+			'parent'     => 0
+		) );
+
+		$html = '<div class="wfccbpci__container">'. PHP_EOL;
+		$html .= '<p>'. PHP_EOL;
+		$html .='<label for="' . esc_attr( $this->get_field_id( 'cat_parent' ) ) . '" class="wfccbpci__session-title">' . __( 'Category parent' ) . '</label>' . PHP_EOL;
+		$html .='<select class="widefat" id="' . esc_attr( $this->get_field_id( 'cat_parent' ) ) . '" name="' . esc_attr__( $this->get_field_name( 'cat_parent' ) ) . '">' . PHP_EOL;
+		$html .='<option value="0,Uncategorized" selected disabled>Select category parent</option>' . PHP_EOL;
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
 				$html .= '<option value="' . esc_attr( $term->term_id ) . ',' . esc_attr( $term->name ) . '"' . selected( $instance['cat_parent'], esc_attr( $term->term_id ) . ',' . esc_attr( $term->name ) , false ) . '>' . esc_html( $term->name ) . '</option>';
@@ -57,6 +69,20 @@ class WFCCBPCI_Widget extends WP_Widget {
 		$html .= '</select>' . PHP_EOL;
 		$html .= '</p>';
 
+		$html .= '<i class="fas fa-link fa-lg"></i>'. PHP_EOL;
+
+		$html .= '<p>'. PHP_EOL;
+		$html .='<label for="' . esc_attr( $this->get_field_id( 'slug' ) ) . '" class="wfccbpci__session-title">' . __( 'Page' ) . '</label>' . PHP_EOL;
+		$html .='<select class="widefat" id="' . esc_attr( $this->get_field_id( 'slug' ) ) . '" name="' . esc_attr__( $this->get_field_name( 'slug' ) ) . '">' . PHP_EOL;
+		$html .='<option value="uncategorized" selected disabled>Select page</option>' . PHP_EOL;
+		if ( ! empty( $pages ) && ! is_wp_error( $pages ) ) {
+			foreach ( $pages as $page ) {
+				$html .= '<option value="' . esc_attr( $page->post_name) . '"' . selected( $instance['slug'], esc_attr( $page->post_name ) , false ) . '>' . esc_html( $page->post_title ) . '</option>';
+			}
+		}
+		$html .= '</select>' . PHP_EOL;
+		$html .= '</p>'. PHP_EOL;
+		$html .='</div>'. PHP_EOL;
 		echo( $html );
 	}
 
@@ -76,6 +102,7 @@ class WFCCBPCI_Widget extends WP_Widget {
 		$instance = $old_instance;
 		// Update the 'id_parent' value with the new value, after stripping any HTML tags
 		$instance['cat_parent'] = strip_tags( $new_instance['cat_parent'] );
+		$instance['slug'] = strip_tags( $new_instance['slug'] );
 
 		// Return the updated widget instance
 		return $instance;
@@ -94,6 +121,16 @@ class WFCCBPCI_Widget extends WP_Widget {
 		$instance_base      = explode( ',', $instance['cat_parent'] );
 		$parent_category_id = (integer) $instance_base[0];
 		$name_category      = (string) $instance_base[1];
+		$slug = explode( ',', $instance['slug'] );
+
+		// Get slug page current
+		$current_url = home_url(add_query_arg(array()));
+		$path = parse_url($current_url, PHP_URL_PATH);
+		$path_cleaned = str_replace(array('/', '\\'), '', $path);
+
+		if($slug[0] !== $path_cleaned){
+			return;
+		}
 
 		// Get the widget title.
 		$title = apply_filters( 'widget_title', $name_category );
