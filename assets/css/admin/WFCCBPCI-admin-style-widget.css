@@ -5,3 +5,15 @@
     color: #000;
     margin-bottom: 5px;
 }
+
+.wfccbpci__container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap:10px;
+}
+.wfccbpci__container>p{
+    width: calc(50% - 5px);
+}

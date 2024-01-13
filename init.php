@@ -37,15 +37,19 @@ if ( ! defined( 'WFCCBPCI_BASE' ) ) {
 if ( ! function_exists( 'enqueue_plugin_assets' ) && ! function_exists( 'client_enqueue_plugin_assets' ) && ! function_exists( 'admin_enqueue_plugin_assets' ) ) {
 
 	function client_enqueue_plugin_assets(): void {
+		wp_register_style( 'WFCCBPCI-fontawesome-widget', WFCCBPCI_URL . 'assets/css/fontawesome/css/' . 'all.css' );
 		wp_register_style( 'WFCCBPCI-style-widget', WFCCBPCI_URL . 'assets/css/client/' . 'WFCCBPCI-style-widget.css' );
 		wp_register_script( 'WFCCBPCI-main', WFCCBPCI_URL . 'assets/js/client/' . 'WFCCBPCI-main.js', array( 'jquery' ), '1.0.0', true );
+		wp_enqueue_style( 'WFCCBPCI-fontawesome-widget' );
 		wp_enqueue_style( 'WFCCBPCI-style-widget' );
 		wp_enqueue_script( 'WFCCBPCI-main' );
 	}
 
 	function admin_enqueue_plugin_assets(): void {
+		wp_register_style( 'WFCCBPCI-admin-fontawesome-widget', WFCCBPCI_URL . 'assets/css/fontawesome/css/' . 'all.css' );
 		wp_register_style( 'WFCCBPCI-admin-style-widget', WFCCBPCI_URL . 'assets/css/admin/' . 'WFCCBPCI-admin-style-widget.css' );
 		wp_register_script( 'WFCCBPCI-admin-main', WFCCBPCI_URL . 'assets/js/admin/' . 'WFCCBPCI-admin-main.js', array( 'jquery' ), '1.0.0', true );
+		wp_enqueue_style( 'WFCCBPCI-admin-fontawesome-widget' );
 		wp_enqueue_style( 'WFCCBPCI-admin-style-widget' );
 		wp_enqueue_script( 'WFCCBPCI-admin-main' );
 	}
